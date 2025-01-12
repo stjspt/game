@@ -28,11 +28,7 @@ level_width = 10000
 
 
 def load_image(name, colorkey=None):
-    fullname = os.path.join("game", name)
-    if not os.path.isfile(fullname):
-        print(f"Файл с изображением '{fullname}' не найден")
-        sys.exit()
-    image = pygame.image.load(fullname)
+    image = pygame.image.load(name)
     if colorkey is not None:
         image = image.convert()
         if colorkey == -1:
