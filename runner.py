@@ -1,6 +1,4 @@
 import pygame
-import sys
-import os
 
 pygame.init()
 
@@ -8,22 +6,18 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 PLAYER_COLOR = (0, 128, 255)
 ENEMY_COLOR = (0, 255, 0)
-FALL_COLOR = (0, 0, 255)
-ATTACK_COLOR = (255, 165, 0)
+OBSTACLE_COLOR = (0, 0, 255)
 
 GRAVITY = 1
 JUMP_STRENGTH = 15
 ENEMY_WIDTH = 140
 ENEMY_HEIGHT = 140
-FALL_WIDTH = 50
-FALL_HEIGHT = 50
 
 screen_width = 1500
 screen_height = 700
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Runner Game")
 clock = pygame.time.Clock()
-
 level_width = 10000
 
 
@@ -42,9 +36,8 @@ def load_image(name, colorkey=None):
 class Player:
     def __init__(self):
         self.image = load_image("idle.png")
-        self.image = self.image.convert_alpha()
         self.image = pygame.transform.scale(self.image, (120, 140))
-        self.rect = pygame.Rect(50, 240, 480, 500)
+        self.rect = pygame.Rect(50, screen_height - 200, 120, 140)
         self.velocity_y = 0
         self.is_jumping = False
         self.move_speed = 5
@@ -88,6 +81,16 @@ class Player:
         else:
             self.is_attacking = False
 
+    def check_collision_with_obstacles(self, obstacles):
+        for obstacle in obstacles:
+            if self.rect.colliderect(obstacle.rect):
+                if self.is_jumping:
+                    continue
+                if self.rect.x < obstacle.rect.x:
+                    self.rect.x = obstacle.rect.x - self.rect.width
+                else:
+                    self.rect.x = obstacle.rect.x + obstacle.rect.width
+
     def draw(self, surface):
         health_bar = pygame.Rect(10, 10, 100, 10)
         pygame.draw.rect(surface, BLACK, health_bar)
@@ -103,6 +106,7 @@ class Player:
                 self.attack_range,
                 self.rect.height
             )
+            pygame.draw.rect(surface, ENEMY_COLOR, attack_rect)  # Отображаем область атаки
 
 
 class Enemy:
@@ -156,7 +160,7 @@ class Enemy:
         if self.health < 0:
             self.health = 0
 
-    def draw(self, surface):
+    def draw(self, surface, camera_x):
         if self.health <= 0:
             return
 
@@ -177,6 +181,14 @@ class Enemy:
         return distance <= self.attack_radius
 
 
+class Obstacle:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 50, 50)
+
+    def draw(self, surface, camera_x):
+        pygame.draw.rect(surface, OBSTACLE_COLOR, (self.rect.x - camera_x, self.rect.y, self.rect.width, self.rect.height))
+
+
 player = Player()
 
 enemies = [
@@ -185,6 +197,11 @@ enemies = [
     Enemy(5000, screen_height - ENEMY_HEIGHT - 100),
     Enemy(7000, screen_height - ENEMY_HEIGHT - 100),
     Enemy(9000, screen_height - ENEMY_HEIGHT - 100)
+]
+
+obstacles = [
+    Obstacle(600, screen_height - 150),
+    Obstacle(1100, screen_height - 150),
 ]
 
 background_img = load_image("city (1).jpg")
@@ -212,6 +229,7 @@ while running:
         player.attack()
 
     player.update()
+    player.check_collision_with_obstacles(obstacles)
 
     if player.rect.x > screen_width - 400 and player.rect.x < level_width - screen_width + 400:
         camera_x = player.rect.x - (screen_width - 400)
@@ -220,9 +238,12 @@ while running:
     screen.blit(background_img, (-background_offset, 0))
     screen.blit(background_img, (background_width - background_offset, 0))
 
+    for obstacle in obstacles:
+        obstacle.draw(screen, camera_x)
+
     for enemy in enemies[:]:
         enemy.update(player)
-        enemy.draw(screen)
+        enemy.draw(screen, camera_x)
 
         if enemy.health <= 0:
             enemies.remove(enemy)
