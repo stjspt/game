@@ -106,7 +106,7 @@ class Player:
                 self.attack_range,
                 self.rect.height
             )
-            pygame.draw.rect(surface, ENEMY_COLOR, attack_rect)  # Отображаем область атаки
+            pygame.draw.rect(surface, ENEMY_COLOR, attack_rect)
 
 
 class Enemy:
