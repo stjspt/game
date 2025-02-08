@@ -1,54 +1,252 @@
+import sqlite3
 from player import *
 from objects import *
+
+pygame.init()
+pygame.mixer.init()
+
+
+def load_level_1():
+    return {
+        "background": "city (1).jpg",
+        "music": "1. Blast Off! FULL.mp3",
+        "enemies": [
+            Enemy(1000, screen_height - ENEMY_HEIGHT - 100),
+            Enemy(2000, screen_height - ENEMY_HEIGHT - 100),
+            Enemy(3000, screen_height - ENEMY_HEIGHT - 100),
+            Enemy(4000, screen_height - ENEMY_HEIGHT - 100),
+            Enemy(5000, screen_height - ENEMY_HEIGHT - 100),
+        ],
+        "obstacles": [
+            Obstacle(600, screen_height - 150, "trashbin", width=70, height=70),
+            Obstacle(1100, screen_height - 150, "wall", width=100, height=70),
+            Obstacle(1600, screen_height - 150, "barrel", width=100, height=80),
+            Obstacle(2100, screen_height - 150, "manhole", width=100, height=80),
+            Obstacle(2600, screen_height - 150, "trashbin", width=70, height=70),
+            Obstacle(3100, screen_height - 150, "wall", width=100, height=70),
+            Obstacle(3600, screen_height - 150, "barrel", width=100, height=80),
+            Obstacle(4100, screen_height - 150, "manhole", width=100, height=80),
+            Obstacle(4600, screen_height - 150, "wall", width=100, height=70),
+            Obstacle(5100, screen_height - 150, "barrel", width=100, height=80),
+        ],
+        "platforms": [
+            Platform(1500, screen_height - 300, 200, 20),
+            Platform(1800, screen_height - 400, 200, 20),
+            Platform(3500, screen_height - 300, 200, 20),
+            Platform(3800, screen_height - 400, 200, 20),
+            Platform(4100, screen_height - 500, 200, 20),
+        ],
+        "coins": [
+            Coin(1600, screen_height - 350),
+            Coin(1800, screen_height - 350),
+            Coin(2000, screen_height - 450),
+            Coin(2200, screen_height - 450),
+            Coin(2800, screen_height - 150),
+            Coin(3000, screen_height - 150),
+            Coin(3200, screen_height - 150),
+            Coin(3600, screen_height - 350),
+            Coin(3800, screen_height - 450),
+            Coin(4000, screen_height - 550),
+            Coin(4200, screen_height - 550),
+            Coin(4600, screen_height - 150),
+            Coin(4800, screen_height - 150),
+        ],
+    }
+
+
+def load_level_2():
+    return {
+        "background": "41530[1].jpg",
+        "music": "4. Inside the Robot Factory FULL.mp3",
+        "enemies": [
+            Enemy(2000, screen_height - ENEMY_HEIGHT - 100),
+            Enemy(3000, screen_height - ENEMY_HEIGHT - 100),
+            Enemy(4000, screen_height - ENEMY_HEIGHT - 100),
+            Enemy(5000, screen_height - ENEMY_HEIGHT - 100),
+
+        ],
+        "obstacles": [
+            Obstacle(800, screen_height - 150, "wall", width=100, height=70),
+            Obstacle(1500, screen_height - 150, "log", width=110, height=80),
+            Obstacle(2200, screen_height - 150, "log", width=110, height=80),
+            Obstacle(2800, screen_height - 150, "log", width=110, height=80),
+            Obstacle(3400, screen_height - 150, "wall", width=100, height=70),
+            Obstacle(4000, screen_height - 150, "log", width=110, height=80),
+            Obstacle(4600, screen_height - 150, "wall", width=100, height=70),
+            Obstacle(5200, screen_height - 150, "wall", width=100, height=70),
+        ],
+        "platforms": [
+            Platform(2100, screen_height - 300, 200, 20),
+            Platform(2500, screen_height - 400, 200, 20),
+            Platform(2800, screen_height - 500, 200, 20),
+            Platform(4000, screen_height - 300, 200, 20),
+            Platform(4300, screen_height - 400, 200, 20),
+            Platform(4600, screen_height - 500, 200, 20),
+        ],
+        "coins": [
+            Coin(2100, screen_height - 350),
+            Coin(2300, screen_height - 350),
+            Coin(2500, screen_height - 450),
+            Coin(2700, screen_height - 450),
+            Coin(2800, screen_height - 550),
+            Coin(3000, screen_height - 550),
+            Coin(4000, screen_height - 350),
+            Coin(4200, screen_height - 350),
+            Coin(4400, screen_height - 450),
+            Coin(4600, screen_height - 550),
+            Coin(4800, screen_height - 550),
+        ],
+    }
+
+
+def create_db():
+    conn = sqlite3.connect('player_progress.db')
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS player_progress (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            levels_completed INTEGER NOT NULL
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+
+def save_progress(levels_completed):
+    conn = sqlite3.connect('player_progress.db')
+    cursor = conn.cursor()
+    cursor.execute('INSERT INTO player_progress (levels_completed) VALUES (?)', (levels_completed,))
+    conn.commit()
+    conn.close()
+
+
+def get_progress():
+    conn = sqlite3.connect('player_progress.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT levels_completed FROM player_progress ORDER BY id DESC LIMIT 1')
+    progress = cursor.fetchone()
+    conn.close()
+    return progress[0] if progress else 0
+
+
 def show_start_screen(screen):
     screen.fill(WHITE)
     font = pygame.font.Font(None, 74)
-    text = font.render("Runner Game", True, BLACK)
+    text = font.render("Run and Live", True, BLACK)
     screen.blit(text, (screen_width // 2 - text.get_width() // 2, screen_height // 2 - text.get_height() // 2))
 
     font = pygame.font.Font(None, 36)
     text = font.render("Press SPACE to start", True, BLACK)
     screen.blit(text, (screen_width // 2 - text.get_width() // 2, screen_height // 2 + 50))
 
-    pygame.display.flip()
+    progress = get_progress()
+    text = font.render(f"Levels completed: {progress}", True, BLACK)
+    screen.blit(text, (screen_width // 2 - text.get_width() // 2, screen_height // 2 + 100))
 
-def show_end_screen(screen, score, state):
+    button_rect = pygame.Rect(screen_width // 2 - 100, screen_height // 2 + 150, 200, 50)
+    pygame.draw.rect(screen, (0, 128, 255), button_rect)
+    button_text = font.render("Top Progress", True, WHITE)
+    screen.blit(button_text, (button_rect.x + 20, button_rect.y + 10))
+
+    pygame.display.flip()
+    return button_rect
+
+
+def show_top_progress(screen):
+    screen.fill(WHITE)
+    font = pygame.font.Font(None, 36)
+    text = font.render("Player Progress", True, BLACK)
+    screen.blit(text, (screen_width // 2 - text.get_width() // 2, 50))
+
+    progress = get_progress()
+    text = font.render(f"Levels completed: {progress}", True, BLACK)
+    screen.blit(text, (screen_width // 2 - text.get_width() // 2, 100))
+
+    back_button_rect = pygame.Rect(screen_width // 2 - 100, screen_height - 100, 200, 50)
+    pygame.draw.rect(screen, (0, 128, 255), back_button_rect)
+    back_text = font.render("Back", True, WHITE)
+    screen.blit(back_text, (back_button_rect.x + 20, back_button_rect.y + 10))
+
+    pygame.display.flip()
+    return back_button_rect
+
+
+def show_end_screen(screen, score, state, levels_completed):
     screen.fill(WHITE)
     if state == 0:
         font = pygame.font.Font(None, 74)
         text = font.render("Game Over", True, BLACK)
         screen.blit(text, (screen_width // 2 - text.get_width() // 2, screen_height // 2 - text.get_height() // 2))
+        font = pygame.font.Font(None, 36)
+        text = font.render(f"Score: {score}", True, BLACK)
+        screen.blit(text, (screen_width // 2 - text.get_width() // 2, screen_height // 2 + 50))
+
+        text = font.render("Press SPACE to restart", True, BLACK)
+        screen.blit(text, (screen_width // 2 - text.get_width() // 2, screen_height // 2 + 150))
     else:
         font = pygame.font.Font(None, 74)
         text = font.render("Level complete!", True, BLACK)
         screen.blit(text, (screen_width // 2 - text.get_width() // 2, screen_height // 2 - text.get_height() // 2))
-    font = pygame.font.Font(None, 36)
-    text = font.render(f"Score: {score}", True, BLACK)
-    screen.blit(text, (screen_width // 2 - text.get_width() // 2, screen_height // 2 + 50))
+        font = pygame.font.Font(None, 36)
+        text = font.render(f"Levels completed: {levels_completed}", True, BLACK)
+        screen.blit(text, (screen_width // 2 - text.get_width() // 2, screen_height // 2 + 50))
 
-    text = font.render("Press SPACE to restart", True, BLACK)
-    screen.blit(text, (screen_width // 2 - text.get_width() // 2, screen_height // 2 + 150))
+        text = font.render("Press SPACE to start next level", True, BLACK)
+        screen.blit(text, (screen_width // 2 - text.get_width() // 2, screen_height // 2 + 150))
 
     pygame.display.flip()
 
 
-background_img = pygame.image.load("city (1).jpg")
-background_width = background_img.get_width()
+def show_final_screen(screen):
+    screen.fill(WHITE)
+    font = pygame.font.Font(None, 74)
+    text = font.render("Congratulations!", True, BLACK)
+    screen.blit(text, (screen_width // 2 - text.get_width() // 2, screen_height // 2 - 100))
 
-camera_x = 0
+    font = pygame.font.Font(None, 36)
+    text = font.render("You have completed all levels!", True, BLACK)
+    screen.blit(text, (screen_width // 2 - text.get_width() // 2, screen_height // 2))
+
+    button_rect = pygame.Rect(screen_width // 2 - 100, screen_height // 2 + 100, 200, 50)
+    pygame.draw.rect(screen, (0, 128, 255), button_rect)
+    button_text = font.render("Quit", True, WHITE)
+    screen.blit(button_text, (button_rect.x + 60, button_rect.y + 10))
+
+    pygame.display.flip()
+    return button_rect
+
+
+def reset_level(level_data):
+    for enemy in level_data["enemies"]:
+        enemy.rect.x = enemy.start_x
+        enemy.health = enemy.max_health
+
+    for coin in level_data["coins"]:
+        coin.collected = False
+
+
 def main():
     pygame.init()
-
+    create_db()
     screen = pygame.display.set_mode((screen_width, screen_height))
     pygame.display.set_caption("Runner Game")
     clock = pygame.time.Clock()
 
+    levels = [load_level_1(), load_level_2()]
+    current_level = 0
+    level_complete = False
+    levels_completed = get_progress()
+
+    level_data = levels[current_level]
+    background_img = pygame.image.load(level_data["background"])
+    background_width = background_img.get_width()
+    camera_x = 0
     game_state = "start"
     state = 0
 
     while True:
         if game_state == "start":
-            show_start_screen(screen)
+            button_rect = show_start_screen(screen)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -57,67 +255,29 @@ def main():
                     if event.key == pygame.K_SPACE:
                         game_state = "game"
                         player = Player()
-                        enemies = [
-                            Enemy(1000, screen_height - ENEMY_HEIGHT - 100),
-                            Enemy(3000, screen_height - ENEMY_HEIGHT - 100),
-                            Enemy(5000, screen_height - ENEMY_HEIGHT - 100),
-                            Enemy(7000, screen_height - ENEMY_HEIGHT - 100),
-                            Enemy(9000, screen_height - ENEMY_HEIGHT - 100),
-                            Enemy(12000, screen_height - ENEMY_HEIGHT - 100),
-                            Enemy(15000, screen_height - ENEMY_HEIGHT - 100),
-                            Enemy(18000, screen_height - ENEMY_HEIGHT - 100),
-                        ]
-                        obstacles = [
-                            Obstacle(600, screen_height - 150),
-                            Obstacle(1100, screen_height - 150),
-                            Obstacle(2000, screen_height - 150),
-                            Obstacle(3000, screen_height - 150),
-                            Obstacle(4000, screen_height - 150),
-                            Obstacle(5000, screen_height - 150),
-                            Obstacle(6000, screen_height - 150),
-                            Obstacle(7000, screen_height - 150),
-                            Obstacle(8000, screen_height - 150),
-                            Obstacle(9000, screen_height - 150),
-                        ]
-                        platforms = [
-                            Platform(1500, screen_height - 300, 200, 20),
-                            Platform(2500, screen_height - 400, 200, 20),
-                            Platform(3500, screen_height - 500, 200, 20),
-                            Platform(4500, screen_height - 600, 200, 20),
-                            Platform(5500, screen_height - 700, 200, 20),
-                            Platform(6500, screen_height - 800, 200, 20),
-                            Platform(7500, screen_height - 900, 200, 20),
-                            Platform(8500, screen_height - 1000, 200, 20),
-                        ]
-                        coins = [
-                            Coin(1600, screen_height - 350),
-                            Coin(2600, screen_height - 450),
-                            Coin(3600, screen_height - 550),
-                            Coin(4600, screen_height - 650),
-                            Coin(5600, screen_height - 750),
-                            Coin(6600, screen_height - 850),
-                            Coin(7600, screen_height - 950),
-                            Coin(8600, screen_height - 1050),
-                            Coin(9600, screen_height - 1150),
-                            Coin(10600, screen_height - 1250),
-                            Coin(11600, screen_height - 1350),
-                            Coin(12600, screen_height - 1450),
-                        ]
-                        spikes = [
-                            Spike(1800, screen_height - 120, 50, 50),
-                            Spike(2800, screen_height - 120, 50, 50),
-                            Spike(3800, screen_height - 120, 50, 50),
-                            Spike(4800, screen_height - 120, 50, 50),
-                            Spike(5800, screen_height - 120, 50, 50),
-                            Spike(6800, screen_height - 120, 50, 50),
-                            Spike(7800, screen_height - 120, 50, 50),
-                            Spike(8800, screen_height - 120, 50, 50),
-                            Spike(9800, screen_height - 120, 50, 50),
-                            Spike(10800, screen_height - 120, 50, 50),
-                            Spike(11800, screen_height - 120, 50, 50),
-                            Spike(12800, screen_height - 120, 50, 50),
-                        ]
+                        level_data = levels[current_level]
+                        reset_level(level_data)
+                        background_img = pygame.image.load(level_data["background"])
+                        pygame.mixer.music.load(level_data["music"])
+                        pygame.mixer.music.play(-1)
+                        enemies = level_data["enemies"]
+                        obstacles = level_data["obstacles"]
+                        platforms = level_data["platforms"]
+                        coins = level_data["coins"]
                         camera_x = 0
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if button_rect.collidepoint(event.pos):
+                        game_state = "top_progress"
+
+        elif game_state == "top_progress":
+            back_button_rect = show_top_progress(screen)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    return
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if back_button_rect.collidepoint(event.pos):
+                        game_state = "start"
 
         elif game_state == "game":
             screen.fill(WHITE)
@@ -143,10 +303,12 @@ def main():
 
             if player.rect.x > screen_width - 400 and player.rect.x < level_width - screen_width + 400:
                 camera_x = player.rect.x - (screen_width - 400)
+            else:
+                camera_x = max(0, min(camera_x, level_width - screen_width))
 
             background_offset = camera_x % background_width
-            screen.blit(background_img, (-background_offset, 0))
-            screen.blit(background_img, (background_width - background_offset, 0))
+            for x in range(-background_offset, screen_width, background_width - 14):
+                screen.blit(background_img, (x,  0))
 
             for platform in platforms:
                 platform.draw(screen, camera_x)
@@ -164,13 +326,6 @@ def main():
                     player.score += 1
                 coin.draw(screen, camera_x)
 
-            for spike in spikes:
-                spike.draw(screen, camera_x)
-                if player.rect.colliderect(spike.rect):
-                    player.health -= 10
-                    if player.health <= 0:
-                        game_state = "end"
-
             for enemy in enemies[:]:
                 enemy.update(player)
                 enemy.draw(screen, camera_x)
@@ -180,27 +335,56 @@ def main():
 
                 if enemy.is_in_attack_range(player):
                     player.health -= 0.3
+
             if player.health <= 0:
                 game_state = "end"
+                pygame.mixer.music.stop()
 
             player.draw(screen, camera_x)
 
-            if player.rect.x >= level_width - player.rect.width:
-                state = 1
+            if player.rect.x >= level_width - player.rect.width - 500:
+                level_complete = True
                 game_state = "end"
+                state = 1
+                pygame.mixer.music.stop()
 
             pygame.display.flip()
             clock.tick(60)
 
         elif game_state == "end":
-            show_end_screen(screen, player.score, state)
+            if state == 1:
+                levels_completed += 1
+                save_progress(levels_completed)
+                state = 0
+            show_end_screen(screen, player.score, state, levels_completed)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     return
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        game_state = "start"
+                        if level_complete:
+                            current_level += 1
+                            if current_level >= len(levels):
+                                game_state = "final"
+                            else:
+                                game_state = "start"
+                                player.score = 0
+                                level_complete = False
+                        else:
+                            game_state = "start"
+
+        elif game_state == "final":
+            quit_button_rect = show_final_screen(screen)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    return
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if quit_button_rect.collidepoint(event.pos):
+                        pygame.quit()
+                        return
+
 
 if __name__ == "__main__":
     main()

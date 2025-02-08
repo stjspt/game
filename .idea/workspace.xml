@@ -5,10 +5,62 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26255c51-6dfb-456f-9158-c816b0340b3f" name="Changes" comment="новые объекты">
-      <change afterPath="$PROJECT_DIR$/objects.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pit.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/1. Blast Off! FULL.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/4. Inside the Robot Factory FULL.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/41530[1].jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/attack/Melee (1).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/attack/Melee (2).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/attack/Melee (3).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/attack/Melee (4).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/attack/Melee (5).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/attack/Melee (6).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/attack/Melee (7).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barrel (1).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy_run/walk10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy_run/walk5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy_run/walk6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy_run/walk7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy_run/walk8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy_run/walk9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/forest (2).jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/idle/Idle (1).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/idle/Idle (10).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/idle/Idle (2).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/idle/Idle (3).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/idle/Idle (4).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/idle/Idle (5).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/idle/Idle (6).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/idle/Idle (7).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/idle/Idle (8).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/idle/Idle (9).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jump/Jump (1).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jump/Jump (10).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jump/Jump (2).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jump/Jump (3).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jump/Jump (4).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jump/Jump (5).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jump/Jump (6).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jump/Jump (7).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jump/Jump (8).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jump/Jump (9).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/log.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/manhole(1).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/Run (1).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/Run (2).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/Run (3).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/Run (4).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/Run (5).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/Run (6).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/Run (7).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/Run (8).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/trashbin (1).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wall (1).png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/idle.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/idle1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/objects.py" beforeDir="false" afterPath="$PROJECT_DIR$/objects.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pit.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/runner.py" beforeDir="false" afterPath="$PROJECT_DIR$/runner.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -28,28 +80,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.runner.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Reverting in master",
-    "last_opened_file_path": "C:/Users/user/PycharmProjects/game/runner.py",
-    "two.files.diff.last.used.file": "C:/Users/user/PycharmProjects/game/runner.py"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.runner.executor&quot;: &quot;Run&quot;,
+    &quot;Python.scratch_3.executor&quot;: &quot;Run&quot;,
+    &quot;Python.scratch_4.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/PycharmProjects/game&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
+    &quot;two.files.diff.last.used.file&quot;: &quot;C:/Users/user/PycharmProjects/game/runner.py&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "Python"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;Python&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\user\PycharmProjects\game" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\user\PycharmProjects\game" />
+      <recent name="C:\Users\user\PycharmProjects\game\attack" />
       <recent name="C:\Users\user\PycharmProjects\game\.venv" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.runner">
     <configuration name="runner" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="game" />
       <option name="ENV_FILES" value="" />
@@ -72,9 +131,55 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="scratch_3" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="game" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$APPLICATION_CONFIG_DIR$/scratches" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/scratch_3.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="scratch_4" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="game" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$APPLICATION_CONFIG_DIR$/scratches" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/scratch_4.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.runner" />
+        <item itemvalue="Python.scratch_4" />
+        <item itemvalue="Python.scratch_3" />
       </list>
     </recent_temporary>
   </component>
@@ -110,7 +215,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736714055813</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="новые объекты">
+      <option name="closed" value="true" />
+      <created>1737665647323</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1737665647323</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
